@@ -1,0 +1,11 @@
+services:
+   _defaults:
+      autoconfigure: true
+      autowire: true
+      public: false
+      bind:
+         $projectDir: '%kernel.project_dir%'
+         $db: '@database_connection'
+
+   Cgoit\FormFillPdfBundle\:
+      resource: ../../*
