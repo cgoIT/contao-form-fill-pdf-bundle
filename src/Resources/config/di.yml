@@ -6,6 +6,10 @@ services:
       bind:
          $projectDir: '%kernel.project_dir%'
          $db: '@database_connection'
+         $stringParser: '@Codefog\HasteBundle\StringParser'
+         $insertTagParser: '@contao.insert_tag.parser'
 
    Cgoit\FormFillPdfBundle\:
       resource: ../../*
+      exclude:
+         - '../*'
