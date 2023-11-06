@@ -10,25 +10,37 @@ declare(strict_types=1);
  * @license LGPL-3.0-or-later
  */
 
-$GLOBALS['TL_LANG']['tl_form']['fillPdf_legend'] = 'PDF-Vorlage';
+$GLOBALS['TL_LANG']['tl_form']['fp_legend'] = 'PDF Template';
 
-$GLOBALS['TL_LANG']['tl_form']['fillPdf']['0'] = 'PDF-Vorlage befüllen';
-$GLOBALS['TL_LANG']['tl_form']['fillPdf']['1'] = 'Mit den eingegebenen Werten im Formular soll ein PDF-Formular befüllt werden.';
+$GLOBALS['TL_LANG']['tl_form']['fpFill']['0'] = 'Merge PDF template';
+$GLOBALS['TL_LANG']['tl_form']['fpFill']['1'] = 'A PDF form is to be merged with the values entered in the form.';
 
-$GLOBALS['TL_LANG']['tl_form']['fillPdfTemplate']['0'] = 'PDF-Vorlage';
-$GLOBALS['TL_LANG']['tl_form']['fillPdfTemplate']['1'] = 'Die Vorlage, die befüllt werden soll.';
+$GLOBALS['TL_LANG']['tl_form']['fpConfigs']['0'] = 'Configuration';
+$GLOBALS['TL_LANG']['tl_form']['fpConfigs']['1'] = 'One or more configurations for merging a PDF template.';
 
-$GLOBALS['TL_LANG']['tl_form']['filledPdfFolder']['0'] = 'Speicherort für befüllte PDF-Vorlagen';
-$GLOBALS['TL_LANG']['tl_form']['filledPdfFolder']['1'] = 'Pfad, unter dem die befüllten PDF-Dateien abgelegt werden sollen.';
+$GLOBALS['TL_LANG']['tl_form']['fpName']['0'] = 'Name';
+$GLOBALS['TL_LANG']['tl_form']['fpName']['1'] = 'This name is used, among other things, to make the generated PDF usable as a SimpleToken. A name <code>merged</code> leads to a SimpleToken <code>##file_merged##</code>.';
 
-$GLOBALS['TL_LANG']['tl_form']['filledPdfNameTemplate']['0'] = 'Template für Dateinamen des befüllten PDFs';
-$GLOBALS['TL_LANG']['tl_form']['filledPdfNameTemplate']['1'] = 'Das befüllte PDF wird mit diesem Dateinamen im Ziel-Ordner angelegt. Als Platzhalter können Insert-Tags und SimpleTokens (##form_*##) verwendet werden.';
+$GLOBALS['TL_LANG']['tl_form']['fpTemplate']['0'] = 'PDF template';
+$GLOBALS['TL_LANG']['tl_form']['fpTemplate']['1'] = 'The template to be filled.';
 
-$GLOBALS['TL_LANG']['tl_form']['filledPdfDoNotOverwrite']['0'] = 'Preserve existing files';
-$GLOBALS['TL_LANG']['tl_form']['filledPdfDoNotOverwrite']['1'] = 'Add a numeric suffix to the new file if the file name already exists.';
+$GLOBALS['TL_LANG']['tl_form']['fpTargetFolder']['0'] = 'Storage location for merged PDF templates';
+$GLOBALS['TL_LANG']['tl_form']['fpTargetFolder']['1'] = 'Path where the filled PDF files are to be stored.';
 
-$GLOBALS['TL_LANG']['tl_form']['fillPdfInsertTagPrefix']['0'] = 'Prefix Insert-Tags';
-$GLOBALS['TL_LANG']['tl_form']['fillPdfInsertTagPrefix']['1'] = 'Prefix für Werte, die serverseitig als Insert-Tags aufgelöst werden sollen.';
+$GLOBALS['TL_LANG']['tl_form']['fpNameTemplate']['0'] = 'Template for file name of the merged PDF';
+$GLOBALS['TL_LANG']['tl_form']['fpNameTemplate']['1'] = 'The merged PDF is created with this file name in the target folder. Insert tags and SimpleTokens (##form_*##, ##formconfig_*##) can be used as placeholders.';
 
-$GLOBALS['TL_LANG']['tl_form']['fillPdfInsertTagSuffix']['0'] = 'Suffix Insert-Tags';
-$GLOBALS['TL_LANG']['tl_form']['fillPdfInsertTagSuffix']['1'] = 'Suffix für Werte, die serverseitig als Insert-Tags aufgelöst werden sollen.';
+$GLOBALS['TL_LANG']['tl_form']['fpDoNotOverwrite']['0'] = 'Preserve existing files';
+$GLOBALS['TL_LANG']['tl_form']['fpDoNotOverwrite']['1'] = 'Add a numeric suffix to the new file if the file name already exists.';
+
+$GLOBALS['TL_LANG']['tl_form']['fpInsertTagPrefix']['0'] = 'Insert tag prefix';
+$GLOBALS['TL_LANG']['tl_form']['fpInsertTagPrefix']['1'] = 'Prefix for values that are to be resolved as insert tags on the server side. Default=[[';
+
+$GLOBALS['TL_LANG']['tl_form']['fpInsertTagSuffix']['0'] = 'Insert tag suffix';
+$GLOBALS['TL_LANG']['tl_form']['fpInsertTagSuffix']['1'] = 'Suffix for values that are to be resolved as insert tags on the server side. Default=]]';
+
+$GLOBALS['TL_LANG']['tl_form']['fpFlatten']['0'] = 'Flatten form fields';
+$GLOBALS['TL_LANG']['tl_form']['fpFlatten']['1'] = 'If activated, all form fields are flattened (removed) from the PDF after the merge.';
+
+$GLOBALS['TL_LANG']['tl_form']['fpLeadStore']['0'] = 'Save in leads';
+$GLOBALS['TL_LANG']['tl_form']['fpLeadStore']['1'] = 'Select if/where the field value should be saved. For linked forms, you must select the matching main form field.';

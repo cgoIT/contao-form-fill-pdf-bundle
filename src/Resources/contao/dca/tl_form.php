@@ -10,61 +10,95 @@ declare(strict_types=1);
  * @license LGPL-3.0-or-later
  */
 
+use Contao\Backend;
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
+use Contao\DataContainer;
+use Terminal42\LeadsBundle\Terminal42LeadsBundle;
 
 // Palettes
 PaletteManipulator::create()
-    ->addLegend('fillPdf_legend', 'store_legend')
-    ->addField('fillPdf', 'fillPdf_legend', PaletteManipulator::POSITION_APPEND)
+    ->addLegend('fp_legend', 'store_legend')
+    ->addField('fpFill', 'fp_legend', PaletteManipulator::POSITION_APPEND)
     ->applyToPalette('default', 'tl_form')
 ;
 
-$GLOBALS['TL_DCA']['tl_form']['palettes']['__selector__'][] = 'fillPdf';
-$GLOBALS['TL_DCA']['tl_form']['subpalettes']['fillPdf'] = 'fillPdfTemplate,filledPdfFolder,filledPdfNameTemplate,filledPdfDoNotOverwrite,fillPdfInsertTagPrefix,fillPdfInsertTagSuffix';
+$GLOBALS['TL_DCA']['tl_form']['palettes']['__selector__'][] = 'fpFill';
+$GLOBALS['TL_DCA']['tl_form']['subpalettes']['fpFill'] = 'fpConfigs';
+
+$GLOBALS['TL_DCA']['tl_form']['config']['onload_callback'][] = ['fp_tl_form', 'adjustGroupPalette'];
 
 // Fields
 $GLOBALS['TL_DCA']['tl_form']['fields'] = array_merge(
-    ['fillPdf' => [
+    ['fpFill' => [
         'exclude' => true,
         'inputType' => 'checkbox',
         'eval' => ['tl_class' => 'w50 m12', 'submitOnChange' => true],
         'sql' => "char(1) NOT NULL default ''",
     ]],
-    ['fillPdfTemplate' => [
-        'exclude' => true,
-        'inputType' => 'fileTree',
-        'eval' => ['mandatory' => true, 'fieldType' => 'radio', 'extensions' => 'pdf', 'filesOnly' => true, 'tl_class' => 'clr w50'],
-        'sql' => 'binary(16) NULL',
-    ]],
-    ['filledPdfFolder' => [
-        'exclude' => true,
-        'inputType' => 'fileTree',
-        'eval' => ['mandatory' => true, 'fieldType' => 'radio', 'files' => false, 'tl_class' => 'clr w50'],
-        'sql' => 'binary(16) NULL',
-    ]],
-    ['filledPdfNameTemplate' => [
-        'exclude' => true,
-        'inputType' => 'text',
-        'eval' => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'clr w50'],
-        'sql' => "varchar(255) NOT NULL default ''",
-    ]],
-    ['filledPdfDoNotOverwrite' => [
+    ['fpLeadStore' => [
         'exclude' => true,
         'inputType' => 'checkbox',
-        'eval' => ['tl_class' => 'w50 m12'],
-        'sql' => "char(1) NOT NULL default ''",
+        'eval' => ['mandatory' => false, 'tl_class' => 'w50'],
     ]],
-    ['fillPdfInsertTagPrefix' => [
+    ['fpConfigs' => [
         'exclude' => true,
-        'inputType' => 'text',
-        'eval' => ['mandatory' => true, 'maxlength' => 5, 'tl_class' => 'w50'],
-        'sql' => "varchar(5) NOT NULL default '[['",
-    ]],
-    ['fillPdfInsertTagSuffix' => [
-        'exclude' => true,
-        'inputType' => 'text',
-        'eval' => ['mandatory' => true, 'maxlength' => 5, 'tl_class' => 'w50'],
-        'sql' => "varchar(5) NOT NULL default ']]'",
+        'inputType' => 'group',
+        'min' => 1,
+        'order' => false,
+        'palette' => ['fpName', 'fpTemplate', 'fpTargetFolder', 'fpNameTemplate', 'fpDoNotOverwrite', 'fpInsertTagPrefix', 'fpInsertTagSuffix', 'fpFlatten'],
+        'fields' => [
+            'fpName' => [
+                'exclude' => true,
+                'inputType' => 'text',
+                'eval' => ['mandatory' => true, 'maxlength' => 50, 'doNotCopy' => true, 'tl_class' => 'w50'],
+            ],
+            'fpTemplate' => [
+                'exclude' => true,
+                'inputType' => 'fileTree',
+                'eval' => ['mandatory' => true, 'fieldType' => 'radio', 'extensions' => 'pdf', 'filesOnly' => true, 'doNotCopy' => true, 'tl_class' => 'clr w50'],
+            ],
+            'fpTargetFolder' => [
+                'exclude' => true,
+                'inputType' => 'fileTree',
+                'eval' => ['mandatory' => true, 'fieldType' => 'radio', 'files' => false, 'doNotCopy' => true, 'tl_class' => 'clr w50'],
+            ],
+            'fpNameTemplate' => [
+                'exclude' => true,
+                'inputType' => 'text',
+                'eval' => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'clr w50'],
+            ],
+            'fpDoNotOverwrite' => [
+                'exclude' => true,
+                'inputType' => 'checkbox',
+                'eval' => ['tl_class' => 'w50 m12'],
+            ],
+            'fpInsertTagPrefix' => [
+                'exclude' => true,
+                'inputType' => 'text',
+                'eval' => ['mandatory' => false, 'maxlength' => 5, 'tl_class' => 'w50'],
+            ],
+            'fpInsertTagSuffix' => [
+                'exclude' => true,
+                'inputType' => 'text',
+                'eval' => ['mandatory' => false, 'maxlength' => 5, 'tl_class' => 'w50'],
+            ],
+            'fpFlatten' => [
+                'exclude' => true,
+                'inputType' => 'checkbox',
+                'eval' => ['mandatory' => false, 'tl_class' => 'w50'],
+            ],
+        ],
+        'sql' => 'blob NULL',
     ]],
     $GLOBALS['TL_DCA']['tl_form']['fields']
 );
+
+class fp_tl_form extends Backend
+{
+    public function adjustGroupPalette(DataContainer $dc): void
+    {
+        if (class_exists(Terminal42LeadsBundle::class)) {
+            $GLOBALS['TL_DCA'][$dc->table]['fields']['fpConfigs']['palette'][] = 'fpLeadStore';
+        }
+    }
+}
