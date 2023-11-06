@@ -34,7 +34,7 @@ class CopyFilesMigration extends AbstractMigration
     public function run(): MigrationResult
     {
         $path = sprintf(
-            '%s/%s/bundles/formfillpdf',
+            '%s/%s/bundles/cgoitformfillpdf',
             self::getRootDir(),
             self::getWebDir()
         );
@@ -60,8 +60,8 @@ class CopyFilesMigration extends AbstractMigration
     {
         foreach (Folder::scan($path) as $dir) {
             if (!is_dir($path.'/'.$dir)) {
-                $pos = strpos($path, 'formfillpdf');
-                $filesFolder = 'files/form-fill-pdf'.str_replace('formfillpdf', '', substr($path, $pos)).'/'.$dir;
+                $pos = strpos($path, 'cgoitformfillpdf');
+                $filesFolder = 'files/form-fill-pdf'.str_replace('cgoitformfillpdf', '', substr($path, $pos)).'/'.$dir;
 
                 if (!file_exists(self::getRootDir().'/'.$filesFolder)) {
                     $objFile = new File(self::getWebDir().'/bundles/'.substr($path, $pos).'/'.$dir);
@@ -69,8 +69,8 @@ class CopyFilesMigration extends AbstractMigration
                 }
             } else {
                 $folder = $path.'/'.$dir;
-                $pos = strpos($path, 'formfillpdf');
-                $filesFolder = 'files/form-fill-pdf'.str_replace('formfillpdf', '', substr($path, $pos)).'/'.$dir;
+                $pos = strpos($path, 'cgoitformfillpdf');
+                $filesFolder = 'files/form-fill-pdf'.str_replace('cgoitformfillpdf', '', substr($path, $pos)).'/'.$dir;
 
                 if (!file_exists($filesFolder)) {
                     new Folder($filesFolder);
