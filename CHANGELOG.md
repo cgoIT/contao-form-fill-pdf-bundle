@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.0.0...v1.0.1) (2023-11-07)
+
+
+### Miscellaneous Chores
+
+* add terminal42/notification_center as suggested dependency ([4116e8b](https://github.com/cgoIT/contao-form-fill-pdf-bundle/commit/4116e8b473e2ff7142b7aefe39e3984388b167cb))
+
 ## 1.0.0 (2023-11-07)
 
 
