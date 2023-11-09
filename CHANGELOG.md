@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.0.1...v1.0.2) (2023-11-09)
+
+
+### Bug Fixes
+
+* add missing version attribute in composer json ([b10344f](https://github.com/cgoIT/contao-form-fill-pdf-bundle/commit/b10344f3be73fbcb3a412117c46d3fb7d4a4ca3a))
+
 ## [1.0.1](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.0.0...v1.0.1) (2023-11-07)
 
 
