@@ -18,16 +18,20 @@ use Contao\System;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 use mikehaertl\pdftk\Pdf;
+use Symfony\Component\Filesystem\Filesystem;
 
 #[AsHook('prepareFormData')]
 class PrepareFormDataListener
 {
+    private readonly Filesystem $fs;
+
     public function __construct(
         private readonly string $projectDir,
         private readonly Connection $db,
         private readonly StringParser $stringParser,
         private readonly InsertTagParser $insertTagParser,
     ) {
+        $this->fs = new Filesystem();
     }
 
     /**
@@ -137,7 +141,7 @@ class PrepareFormDataListener
         $strFileName = StringUtil::sanitizeFileName($strFileName);
 
         // Do not overwrite existing files
-        if (!empty($formData['fpDoNotOverwrite']) && file_exists($this->projectDir.'/'.$targetFolder.'/'.$strFileName.'.'.$strExtension)) {
+        if (!empty($formData['fpDoNotOverwrite']) && $this->fs->exists($this->projectDir.'/'.$targetFolder.'/'.$strFileName.'.'.$strExtension)) {
             $offset = 1;
 
             $arrAll = Folder::scan($this->projectDir.'/'.$targetFolder, true);

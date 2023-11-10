@@ -26,7 +26,7 @@ class Plugin implements BundlePluginInterface
         $arrLoadAfter = [ContaoCoreBundle::class];
 
         if (class_exists(Terminal42LeadsBundle::class)) {
-            $arrLoadAfter[] = Terminal42LeadsBundle::class;
+            $arrLoadAfter[] = Terminal42LeadsBundle::class; // @phpstan-ignore-line
         }
 
         return [

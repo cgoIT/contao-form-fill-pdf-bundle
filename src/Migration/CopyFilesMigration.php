@@ -18,9 +18,17 @@ use Contao\File;
 use Contao\Folder;
 use Contao\StringUtil;
 use Contao\System;
+use Symfony\Component\Filesystem\Filesystem;
 
 class CopyFilesMigration extends AbstractMigration
 {
+    private readonly Filesystem $fs;
+
+    public function __construct()
+    {
+        $this->fs = new Filesystem();
+    }
+
     public function getName(): string
     {
         return 'Contao Form Fill PDF Bundle: Copy sample pdf template';
@@ -28,7 +36,7 @@ class CopyFilesMigration extends AbstractMigration
 
     public function shouldRun(): bool
     {
-        return !file_exists('files/form-fill-pdf');
+        return !$this->fs->exists('files/form-fill-pdf');
     }
 
     public function run(): MigrationResult
@@ -63,7 +71,7 @@ class CopyFilesMigration extends AbstractMigration
                 $pos = strpos($path, 'cgoitformfillpdf');
                 $filesFolder = 'files/form-fill-pdf'.str_replace('cgoitformfillpdf', '', substr($path, $pos)).'/'.$dir;
 
-                if (!file_exists(self::getRootDir().'/'.$filesFolder)) {
+                if (!$this->fs->exists(self::getRootDir().'/'.$filesFolder)) {
                     $objFile = new File(self::getWebDir().'/bundles/'.substr($path, $pos).'/'.$dir);
                     $objFile->copyTo($filesFolder);
                 }
@@ -72,7 +80,7 @@ class CopyFilesMigration extends AbstractMigration
                 $pos = strpos($path, 'cgoitformfillpdf');
                 $filesFolder = 'files/form-fill-pdf'.str_replace('cgoitformfillpdf', '', substr($path, $pos)).'/'.$dir;
 
-                if (!file_exists($filesFolder)) {
+                if (!$this->fs->exists($filesFolder)) {
                     new Folder($filesFolder);
                 }
                 $this->getFiles($folder);
