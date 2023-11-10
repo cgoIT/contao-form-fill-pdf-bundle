@@ -55,7 +55,7 @@ class PrepareFormDataListener
             }
 
             if ($leadStore) {
-                $submittedData['leads-fp-id'] = md5(uniqid((string) mt_rand(), true));
+                $submittedData['leads-fp-id'] = md5(uniqid((string) random_int(0, mt_getrandmax()), true));
             }
         }
     }
@@ -144,8 +144,8 @@ class PrepareFormDataListener
             $arrFiles = preg_grep('/^'.preg_quote($strFileName, '/').'.*\.'.preg_quote($strExtension, '/').'/', $arrAll);
 
             foreach ($arrFiles as $strFile) {
-                if (preg_match('/__[0-9]+\.'.preg_quote($strExtension, '/').'$/', $strFile)) {
-                    $strFile = str_replace('.'.$strExtension, '', $strFile);
+                if (preg_match('/__[0-9]+\.'.preg_quote($strExtension, '/').'$/', (string) $strFile)) {
+                    $strFile = str_replace('.'.$strExtension, '', (string) $strFile);
                     $intValue = (int) substr($strFile, strrpos($strFile, '_') + 1);
 
                     $offset = max($offset, $intValue);
@@ -179,7 +179,7 @@ class PrepareFormDataListener
             $arrTokens['formlabel_'.$k] = $arrLabels[$k] ?? ucfirst($k);
             $arrTokens['raw_data'] .= ($arrLabels[$k] ?? ucfirst($k)).': '.(\is_array($v) ? implode(', ', $v) : $v)."\n";
 
-            if (\is_array($v) || \strlen($v)) {
+            if (\is_array($v) || \strlen((string) $v)) {
                 $arrTokens['raw_data_filled'] .= ($arrLabels[$k] ?? ucfirst($k)).': '.(\is_array($v) ? implode(', ', $v) : $v)."\n";
             }
         }

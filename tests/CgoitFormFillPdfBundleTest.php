@@ -21,6 +21,6 @@ class CgoitFormFillPdfBundleTest extends TestCase
     {
         $bundle = new CgoitFormFillPdfBundle();
 
-        $this->assertInstanceOf('Cgoit\FormFillPdfBundle\CgoitFormFillPdfBundle', $bundle);
+        $this->assertInstanceOf(CgoitFormFillPdfBundle::class, $bundle);
     }
 }
