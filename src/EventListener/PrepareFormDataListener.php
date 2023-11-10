@@ -22,8 +22,12 @@ use mikehaertl\pdftk\Pdf;
 #[AsHook('prepareFormData')]
 class PrepareFormDataListener
 {
-    public function __construct(private readonly string $projectDir, private readonly Connection $db, private readonly StringParser $stringParser, private readonly InsertTagParser $insertTagParser)
-    {
+    public function __construct(
+        private readonly string $projectDir,
+        private readonly Connection $db,
+        private readonly StringParser $stringParser,
+        private readonly InsertTagParser $insertTagParser,
+    ) {
     }
 
     /**
@@ -40,9 +44,8 @@ class PrepareFormDataListener
                 $submittedData,
                 $formData,
                 $arrFiles,
-                $labels
-            )
-            ;
+                $labels,
+            );
 
             $arrConfig = StringUtil::deserialize($formData['fpConfigs'], true);
             $leadStore = false;
@@ -65,8 +68,8 @@ class PrepareFormDataListener
     private function fillPdf(array $config, array $submittedData, array $tokens): bool
     {
         if (
-            !empty($objPdfTemplate = FilesModel::findByUuid($config['fpTemplate'])) &&
-            !empty($objTargetFolder = FilesModel::findByUuid($config['fpTargetFolder']))
+            !empty($objPdfTemplate = FilesModel::findByUuid($config['fpTemplate']))
+            && !empty($objTargetFolder = FilesModel::findByUuid($config['fpTargetFolder']))
         ) {
             $this->processInsertTags($submittedData, $config['fpInsertTagPrefix'] ?? '[[', $config['fpInsertTagSuffix'] ?? ']]');
 
@@ -220,9 +223,9 @@ class PrepareFormDataListener
      * @param array<mixed> $formConfig
      * @param array<mixed> $postData
      *
-     * @throws Exception
-     *
      * @return array<mixed>
+     *
+     * @throws Exception
      */
     private function getLeadData(array $formConfig, array $postData): array
     {
@@ -239,9 +242,9 @@ class PrepareFormDataListener
     }
 
     /**
-     * @throws Exception
-     *
      * @return array<mixed>
+     *
+     * @throws Exception
      */
     private function getFormFields(int $formId, int $mainId): array
     {
@@ -262,7 +265,7 @@ class PrepareFormDataListener
                           AND form_field.invisible=''
                         ORDER BY main_field.sorting;
                     SQL,
-                [$formId, $mainId]
+                [$formId, $mainId],
             );
         }
 
@@ -278,7 +281,7 @@ class PrepareFormDataListener
                       AND invisible=''
                     ORDER BY sorting
                 SQL,
-            [$formId]
+            [$formId],
         );
     }
 
