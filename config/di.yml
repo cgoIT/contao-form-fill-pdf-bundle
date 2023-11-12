@@ -10,6 +10,4 @@ services:
          $insertTagParser: '@contao.insert_tag.parser'
 
    Cgoit\FormFillPdfBundle\:
-      resource: ../../*
-      exclude:
-         - '../*'
+      resource: ../src/*

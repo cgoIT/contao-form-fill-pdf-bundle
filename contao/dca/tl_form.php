@@ -25,7 +25,7 @@ PaletteManipulator::create()
 $GLOBALS['TL_DCA']['tl_form']['palettes']['__selector__'][] = 'fpFill';
 $GLOBALS['TL_DCA']['tl_form']['subpalettes']['fpFill'] = 'fpConfigs';
 
-$GLOBALS['TL_DCA']['tl_form']['config']['onload_callback'][] = ['fp_tl_form', 'adjustGroupPalette'];
+$GLOBALS['TL_DCA']['tl_form']['config']['onload_callback'][] = ['tl_form_fp', 'adjustGroupPalette'];
 
 // Fields
 $GLOBALS['TL_DCA']['tl_form']['fields'] = array_merge(
@@ -93,7 +93,7 @@ $GLOBALS['TL_DCA']['tl_form']['fields'] = array_merge(
     $GLOBALS['TL_DCA']['tl_form']['fields'],
 );
 
-class tl_form extends Backend
+class tl_form_fp extends Backend
 {
     public function adjustGroupPalette(DataContainer $dc): void
     {
