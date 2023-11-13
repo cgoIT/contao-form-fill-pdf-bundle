@@ -10,10 +10,7 @@ declare(strict_types=1);
  * @license    LGPL-3.0-or-later
  */
 
-use Contao\Backend;
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
-use Contao\DataContainer;
-use Terminal42\LeadsBundle\Terminal42LeadsBundle;
 
 // Palettes
 PaletteManipulator::create()
@@ -24,8 +21,6 @@ PaletteManipulator::create()
 
 $GLOBALS['TL_DCA']['tl_form']['palettes']['__selector__'][] = 'fpFill';
 $GLOBALS['TL_DCA']['tl_form']['subpalettes']['fpFill'] = 'fpConfigs';
-
-$GLOBALS['TL_DCA']['tl_form']['config']['onload_callback'][] = ['tl_form_fp', 'adjustGroupPalette'];
 
 // Fields
 $GLOBALS['TL_DCA']['tl_form']['fields'] = array_merge(
@@ -92,13 +87,3 @@ $GLOBALS['TL_DCA']['tl_form']['fields'] = array_merge(
     ]],
     $GLOBALS['TL_DCA']['tl_form']['fields'],
 );
-
-class tl_form_fp extends Backend
-{
-    public function adjustGroupPalette(DataContainer $dc): void
-    {
-        if (class_exists(Terminal42LeadsBundle::class)) {
-            $GLOBALS['TL_DCA'][$dc->table]['fields']['fpConfigs']['palette'][] = 'fpLeadStore';
-        }
-    }
-}
