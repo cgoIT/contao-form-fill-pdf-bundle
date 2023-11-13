@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.3](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.0.2...v1.0.3) (2023-11-13)
+
+
+### Bug Fixes
+
+* fix ecs and rector errors ([297e24a](https://github.com/cgoIT/contao-form-fill-pdf-bundle/commit/297e24a9b63727a9af175f52c17736bdad72a9a6))
+* fix setup with new project structure after refactoring ([89d0bdc](https://github.com/cgoIT/contao-form-fill-pdf-bundle/commit/89d0bdc5fe372330ccf3fdfabc4039cb2594258a))
+
 ## [1.0.2](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.0.1...v1.0.2) (2023-11-09)
 
 
