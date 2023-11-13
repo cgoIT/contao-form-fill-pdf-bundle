@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 /*
- * This file is part of cgoit\contao-form-fill-pdf-bundle.
+ * This file is part of cgoit\contao-form-fill-pdf-bundle for Contao Open Source CMS.
  *
- * (c) Carsten Götzinger
- *
- * @license LGPL-3.0-or-later
+ * @copyright  Copyright (c) 2023, cgoIT
+ * @author     cgoIT <https://cgo-it.de>
+ * @license    LGPL-3.0-or-later
  */
 
 namespace Cgoit\FormFillPdfBundle\Migration;
@@ -18,9 +18,17 @@ use Contao\File;
 use Contao\Folder;
 use Contao\StringUtil;
 use Contao\System;
+use Symfony\Component\Filesystem\Filesystem;
 
 class CopyFilesMigration extends AbstractMigration
 {
+    private readonly Filesystem $fs;
+
+    public function __construct()
+    {
+        $this->fs = new Filesystem();
+    }
+
     public function getName(): string
     {
         return 'Contao Form Fill PDF Bundle: Copy sample pdf template';
@@ -28,7 +36,7 @@ class CopyFilesMigration extends AbstractMigration
 
     public function shouldRun(): bool
     {
-        return !file_exists('files/form-fill-pdf');
+        return !$this->fs->exists('files/form-fill-pdf');
     }
 
     public function run(): MigrationResult
@@ -36,7 +44,7 @@ class CopyFilesMigration extends AbstractMigration
         $path = sprintf(
             '%s/%s/bundles/cgoitformfillpdf',
             self::getRootDir(),
-            self::getWebDir()
+            self::getWebDir(),
         );
 
         new Folder('files/form-fill-pdf');
@@ -63,7 +71,7 @@ class CopyFilesMigration extends AbstractMigration
                 $pos = strpos($path, 'cgoitformfillpdf');
                 $filesFolder = 'files/form-fill-pdf'.str_replace('cgoitformfillpdf', '', substr($path, $pos)).'/'.$dir;
 
-                if (!file_exists(self::getRootDir().'/'.$filesFolder)) {
+                if (!$this->fs->exists(self::getRootDir().'/'.$filesFolder)) {
                     $objFile = new File(self::getWebDir().'/bundles/'.substr($path, $pos).'/'.$dir);
                     $objFile->copyTo($filesFolder);
                 }
@@ -72,7 +80,7 @@ class CopyFilesMigration extends AbstractMigration
                 $pos = strpos($path, 'cgoitformfillpdf');
                 $filesFolder = 'files/form-fill-pdf'.str_replace('cgoitformfillpdf', '', substr($path, $pos)).'/'.$dir;
 
-                if (!file_exists($filesFolder)) {
+                if (!$this->fs->exists($filesFolder)) {
                     new Folder($filesFolder);
                 }
                 $this->getFiles($folder);

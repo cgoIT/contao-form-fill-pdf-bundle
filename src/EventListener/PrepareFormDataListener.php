@@ -18,12 +18,20 @@ use Contao\System;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 use mikehaertl\pdftk\Pdf;
+use Symfony\Component\Filesystem\Filesystem;
 
 #[AsHook('prepareFormData')]
 class PrepareFormDataListener
 {
-    public function __construct(private readonly string $projectDir, private readonly Connection $db, private readonly StringParser $stringParser, private readonly InsertTagParser $insertTagParser)
-    {
+    private readonly Filesystem $fs;
+
+    public function __construct(
+        private readonly string $projectDir,
+        private readonly Connection $db,
+        private readonly StringParser $stringParser,
+        private readonly InsertTagParser $insertTagParser,
+    ) {
+        $this->fs = new Filesystem();
     }
 
     /**
@@ -40,9 +48,8 @@ class PrepareFormDataListener
                 $submittedData,
                 $formData,
                 $arrFiles,
-                $labels
-            )
-            ;
+                $labels,
+            );
 
             $arrConfig = StringUtil::deserialize($formData['fpConfigs'], true);
             $leadStore = false;
@@ -52,7 +59,7 @@ class PrepareFormDataListener
             }
 
             if ($leadStore) {
-                $submittedData['leads-fp-id'] = md5(uniqid((string) mt_rand(), true));
+                $submittedData['leads-fp-id'] = md5(uniqid((string) random_int(0, mt_getrandmax()), true));
             }
         }
     }
@@ -65,8 +72,8 @@ class PrepareFormDataListener
     private function fillPdf(array $config, array $submittedData, array $tokens): bool
     {
         if (
-            !empty($objPdfTemplate = FilesModel::findByUuid($config['fpTemplate'])) &&
-            !empty($objTargetFolder = FilesModel::findByUuid($config['fpTargetFolder']))
+            !empty($objPdfTemplate = FilesModel::findByUuid($config['fpTemplate']))
+            && !empty($objTargetFolder = FilesModel::findByUuid($config['fpTargetFolder']))
         ) {
             $this->processInsertTags($submittedData, $config['fpInsertTagPrefix'] ?? '[[', $config['fpInsertTagSuffix'] ?? ']]');
 
@@ -134,15 +141,15 @@ class PrepareFormDataListener
         $strFileName = StringUtil::sanitizeFileName($strFileName);
 
         // Do not overwrite existing files
-        if (!empty($formData['fpDoNotOverwrite']) && file_exists($this->projectDir.'/'.$targetFolder.'/'.$strFileName.'.'.$strExtension)) {
+        if (!empty($formData['fpDoNotOverwrite']) && $this->fs->exists($this->projectDir.'/'.$targetFolder.'/'.$strFileName.'.'.$strExtension)) {
             $offset = 1;
 
             $arrAll = Folder::scan($this->projectDir.'/'.$targetFolder, true);
             $arrFiles = preg_grep('/^'.preg_quote($strFileName, '/').'.*\.'.preg_quote($strExtension, '/').'/', $arrAll);
 
             foreach ($arrFiles as $strFile) {
-                if (preg_match('/__[0-9]+\.'.preg_quote($strExtension, '/').'$/', $strFile)) {
-                    $strFile = str_replace('.'.$strExtension, '', $strFile);
+                if (preg_match('/__[0-9]+\.'.preg_quote($strExtension, '/').'$/', (string) $strFile)) {
+                    $strFile = str_replace('.'.$strExtension, '', (string) $strFile);
                     $intValue = (int) substr($strFile, strrpos($strFile, '_') + 1);
 
                     $offset = max($offset, $intValue);
@@ -176,7 +183,7 @@ class PrepareFormDataListener
             $arrTokens['formlabel_'.$k] = $arrLabels[$k] ?? ucfirst($k);
             $arrTokens['raw_data'] .= ($arrLabels[$k] ?? ucfirst($k)).': '.(\is_array($v) ? implode(', ', $v) : $v)."\n";
 
-            if (\is_array($v) || \strlen($v)) {
+            if (\is_array($v) || \strlen((string) $v)) {
                 $arrTokens['raw_data_filled'] .= ($arrLabels[$k] ?? ucfirst($k)).': '.(\is_array($v) ? implode(', ', $v) : $v)."\n";
             }
         }
@@ -220,9 +227,9 @@ class PrepareFormDataListener
      * @param array<mixed> $formConfig
      * @param array<mixed> $postData
      *
-     * @throws Exception
-     *
      * @return array<mixed>
+     *
+     * @throws Exception
      */
     private function getLeadData(array $formConfig, array $postData): array
     {
@@ -239,9 +246,9 @@ class PrepareFormDataListener
     }
 
     /**
-     * @throws Exception
-     *
      * @return array<mixed>
+     *
+     * @throws Exception
      */
     private function getFormFields(int $formId, int $mainId): array
     {
@@ -262,7 +269,7 @@ class PrepareFormDataListener
                           AND form_field.invisible=''
                         ORDER BY main_field.sorting;
                     SQL,
-                [$formId, $mainId]
+                [$formId, $mainId],
             );
         }
 
@@ -278,7 +285,7 @@ class PrepareFormDataListener
                       AND invisible=''
                     ORDER BY sorting
                 SQL,
-            [$formId]
+            [$formId],
         );
     }
 
