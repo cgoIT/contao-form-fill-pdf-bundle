@@ -63,6 +63,14 @@ You then have to configure at least one PDF template which should be merged.
 | Flatten form fields | false                     | If checked all the form fields are removed from the result PDF after merging your data.                                                                                                                                                                                                                                                            |
 | Save in leads | false                     | If you have installed the [`terminal42/contao-leads`](https://github.com/terminal42/contao-leads) bundle you can store the merged PDF also in your leads.                                                                                                                                                                                                                                    |
 
+## Compatibility with other extensions ##
+
+As described above this extension works perfectly well with `terminal42/notification_center` and `terminal42/contao-leads`. There is also a solution if you want to combine this extension with `terminal42/contao-mp_forms`.
+
+### Use with `terminal42/contao-mp_forms` ###
+
+If you have the use case to collect some data in a multi step form created with `terminal42/contao-mp_forms` **and** want to show the merged PDF e.g. on the summary step **before** you finally submit the form you can add a new FormField `Generate PDF` in your form configuration. If this FormField is present it will merge the data which is collected until this step into the selected PDFs and stores the result in the `$_SESSION['FILES']` array. Doing so you can refer to the merged PDF via the well-known Simple Tokens described above. 
+
 ## How to test ##
 
 To make things easy a sample pdf template and a sample form is included in this bundle.

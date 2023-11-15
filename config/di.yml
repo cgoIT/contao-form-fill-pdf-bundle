@@ -8,6 +8,7 @@ services:
          $db: '@database_connection'
          $stringParser: '@Codefog\HasteBundle\StringParser'
          $insertTagParser: '@contao.insert_tag.parser'
+         $formManagerFactory: '@?Terminal42\MultipageFormsBundle\FormManagerFactoryInterface'
 
    Cgoit\FormFillPdfBundle\:
       resource: ../src/*

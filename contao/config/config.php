@@ -9,3 +9,7 @@ declare(strict_types=1);
  * @author     cgoIT <https://cgo-it.de>
  * @license    LGPL-3.0-or-later
  */
+
+use Cgoit\FormFillPdfBundle\Widget\GeneratePdf;
+
+$GLOBALS['TL_FFL']['fp_generate_pdf'] = GeneratePdf::class;

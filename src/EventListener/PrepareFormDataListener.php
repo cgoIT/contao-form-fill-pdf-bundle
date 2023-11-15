@@ -13,14 +13,17 @@ use Contao\File;
 use Contao\FilesModel;
 use Contao\Folder;
 use Contao\Form;
+use Contao\FormFieldModel;
 use Contao\StringUtil;
 use Contao\System;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 use mikehaertl\pdftk\Pdf;
 use Symfony\Component\Filesystem\Filesystem;
+use Terminal42\MultipageFormsBundle\FormManager;
+use Terminal42\MultipageFormsBundle\FormManagerFactoryInterface;
 
-#[AsHook('prepareFormData')]
+#[AsHook('prepareFormData', priority: 100)]
 class PrepareFormDataListener
 {
     private readonly Filesystem $fs;
@@ -30,6 +33,7 @@ class PrepareFormDataListener
         private readonly Connection $db,
         private readonly StringParser $stringParser,
         private readonly InsertTagParser $insertTagParser,
+        private readonly FormManagerFactoryInterface|null $formManagerFactory, // @phpstan-ignore-line
     ) {
         $this->fs = new Filesystem();
     }
@@ -43,9 +47,36 @@ class PrepareFormDataListener
     {
         if ($form->fpFill) { // @phpstan-ignore-line
             $formData = $form->getModel()->row();
+            $submitted = $submittedData;
             $arrFiles = $_SESSION['FILES'] ?? [];
+
+            $arrConfiguredConfigs = null;
+
+            if (null !== $this->formManagerFactory) {
+                $manager = $this->formManagerFactory->forFormId((int) $form->id); // @phpstan-ignore-line
+
+                if (
+                    $manager->isValidFormFieldCombination()
+                    && ((null !== $generatePdfWidget = $this->getGeneratePdfWidget($manager)) || $manager->isLastStep())
+                ) {
+                    $allData = $manager->getDataOfAllSteps();
+
+                    // Replace data by reference and then return so the default Contao
+                    // routine kicks in
+                    $submitted = array_merge($allData->getAllSubmitted(), $submitted);
+                    $labels = array_merge($allData->getAllLabels(), $labels);
+                    $arrFiles = array_merge($allData->getAllFiles(), $arrFiles);
+
+                    if (null !== $generatePdfWidget) {
+                        $arrConfiguredConfigs = StringUtil::deserialize($generatePdfWidget->fpConfigs, true);
+                    }
+                } else {
+                    return;
+                }
+            }
+
             $tokens = $this->generateTokens(
-                $submittedData,
+                $submitted,
                 $formData,
                 $arrFiles,
                 $labels,
@@ -54,8 +85,20 @@ class PrepareFormDataListener
             $arrConfig = StringUtil::deserialize($formData['fpConfigs'], true);
             $leadStore = false;
 
-            foreach ($arrConfig as $config) {
-                $leadStore |= $this->fillPdf($config, $submittedData, $tokens);
+            if (null !== $arrConfiguredConfigs) {
+                $arrEffectiveConfig = [];
+
+                foreach ($arrConfig as $config) {
+                    if (\in_array($config['fpName'], array_values($arrConfiguredConfigs), true)) {
+                        $arrEffectiveConfig[] = $config;
+                    }
+                }
+            } else {
+                $arrEffectiveConfig = $arrConfig;
+            }
+
+            foreach ($arrEffectiveConfig as $config) {
+                $leadStore |= $this->fillPdf($config, $submitted, $tokens);
             }
 
             if ($leadStore) {
@@ -322,5 +365,18 @@ class PrepareFormDataListener
         }
 
         return $value;
+    }
+
+    private function getGeneratePdfWidget(FormManager $manager): FormFieldModel|null // @phpstan-ignore-line
+    {
+        if (null !== $arrWidgets = $manager->getFieldsForStep($manager->getCurrentStep())) { // @phpstan-ignore-line
+            foreach ($arrWidgets as $widget) {
+                if ('fp_generate_pdf' === $widget->type) {
+                    return $widget;
+                }
+            }
+        }
+
+        return null;
     }
 }
