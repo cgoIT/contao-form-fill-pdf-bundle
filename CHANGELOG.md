@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.0.3...v1.1.0) (2023-11-15)
+
+
+### Features
+
+* compatibility with terminal42/contao-mp_forms ([ed97abc](https://github.com/cgoIT/contao-form-fill-pdf-bundle/commit/ed97abc24af00d3bba4a7e038280367d999962ee))
+
 ## [1.0.3](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.0.2...v1.0.3) (2023-11-13)
 
 
