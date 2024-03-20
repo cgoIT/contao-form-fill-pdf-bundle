@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.1](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.1.0...v1.1.1) (2024-03-20)
+
+
+### Bug Fixes
+
+* use full path for filled pdf ([41ad41b](https://github.com/cgoIT/contao-form-fill-pdf-bundle/commit/41ad41be1132c74119092502aed69f24a0b4ae7a))
+
+
+### Miscellaneous Chores
+
+* ecs findings fixed ([2a319f8](https://github.com/cgoIT/contao-form-fill-pdf-bundle/commit/2a319f87558b44ee5982773e3c68816c770d5aba))
+
 ## [1.1.0](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.0.3...v1.1.0) (2023-11-15)
 
 
