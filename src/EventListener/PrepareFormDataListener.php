@@ -61,8 +61,7 @@ class PrepareFormDataListener
                 ) {
                     $allData = $manager->getDataOfAllSteps();
 
-                    // Replace data by reference and then return so the default Contao
-                    // routine kicks in
+                    // Replace data by reference and then return so the default Contao routine kicks in
                     $submitted = array_merge($allData->getAllSubmitted(), $submitted);
                     $labels = array_merge($allData->getAllLabels(), $labels);
                     $arrFiles = array_merge($allData->getAllFiles(), $arrFiles);
@@ -152,9 +151,9 @@ class PrepareFormDataListener
                 $filledPdf = [
                     'name' => $fileName,
                     'uuid' => StringUtil::binToUuid($fileModel->uuid),
-                    'full_path' => $this->projectDir . '/' . $objFile->path,
+                    'full_path' => $this->projectDir.'/'.$objFile->path,
                     'type' => $objFile->mime,
-                    'tmp_name' => $this->projectDir . '/' . $objFile->path,
+                    'tmp_name' => $this->projectDir.'/'.$objFile->path,
                     'error' => 0,
                     'size' => $objFile->size,
                     'uploaded' => true,
@@ -182,7 +181,7 @@ class PrepareFormDataListener
         $strFileName = $this->insertTagParser->replaceInline($strTemplate);
         $strFileName = str_replace(array_keys($tokens), array_values($tokens), $strFileName);
         $strFileName = StringUtil::sanitizeFileName($strFileName);
-        $strFileName = str_replace(" ", "_", $strFileName);
+        $strFileName = str_replace(' ', '_', $strFileName);
 
         // Do not overwrite existing files
         if (!empty($formData['fpDoNotOverwrite']) && $this->fs->exists($this->projectDir.'/'.$targetFolder.'/'.$strFileName.'.'.$strExtension)) {
