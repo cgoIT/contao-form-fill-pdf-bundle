@@ -61,8 +61,7 @@ class PrepareFormDataListener
                 ) {
                     $allData = $manager->getDataOfAllSteps();
 
-                    // Replace data by reference and then return so the default Contao
-                    // routine kicks in
+                    // Replace data by reference and then return so the default Contao routine kicks in
                     $submitted = array_merge($allData->getAllSubmitted(), $submitted);
                     $labels = array_merge($allData->getAllLabels(), $labels);
                     $arrFiles = array_merge($allData->getAllFiles(), $arrFiles);
