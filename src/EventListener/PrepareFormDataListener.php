@@ -151,9 +151,9 @@ class PrepareFormDataListener
                 $filledPdf = [
                     'name' => $fileName,
                     'uuid' => StringUtil::binToUuid($fileModel->uuid),
-                    'full_path' => $objFile->path,
+                    'full_path' => $this->projectDir.'/'.$objFile->path,
                     'type' => $objFile->mime,
-                    'tmp_name' => $objFile->path,
+                    'tmp_name' => $this->projectDir.'/'.$objFile->path,
                     'error' => 0,
                     'size' => $objFile->size,
                     'uploaded' => true,
