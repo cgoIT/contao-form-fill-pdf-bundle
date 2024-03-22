@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.2.0...v1.2.1) (2024-03-22)
+
+
+### Miscellaneous Chores
+
+* add issue url to composer.json ([3fba1b8](https://github.com/cgoIT/contao-form-fill-pdf-bundle/commit/3fba1b86ef7aff4d75fb2a08a426b77cc3b07a2f))
+
 ## [1.2.0](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.1.2...v1.2.0) (2024-03-22)
 
 
