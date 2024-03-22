@@ -23,10 +23,10 @@
     "source": "https://github.com/cgoIT/contao-form-fill-pdf-bundle"
   },
   "require": {
-    "php": "^8.1 || ^8.2",
-    "contao/core-bundle": "^4.13",
-    "symfony/dependency-injection": "^5.4",
-    "symfony/http-kernel": "^5.4",
+    "php": "^8.1 || ^8.2 || ^8.3",
+    "contao/core-bundle": "^4.13 || ^5.3",
+    "symfony/dependency-injection": "^5.4 || ^6.1",
+    "symfony/http-kernel": "^5.4 || ^6.1",
     "codefog/contao-haste": "^5.1",
     "mvo/contao-group-widget": "^1.5",
     "mikehaertl/php-pdftk": "^0.13.0"
