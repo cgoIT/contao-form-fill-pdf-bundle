@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.1.2...v1.2.0) (2024-03-22)
+
+
+### Features
+
+* Bundle is compatible to Contao 5 ([249d795](https://github.com/cgoIT/contao-form-fill-pdf-bundle/commit/249d79530f73a4d957be4366d86dd3e8455960a3))
+
 ## [1.1.2](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.1.1...v1.1.2) (2024-03-21)
 
 
