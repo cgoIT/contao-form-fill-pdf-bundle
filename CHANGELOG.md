@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.2.1...v1.2.2) (2024-03-28)
+
+
+### Bug Fixes
+
+* don't mark filled pdf as uploaded ([0cf54cc](https://github.com/cgoIT/contao-form-fill-pdf-bundle/commit/0cf54cc943ee92401842167ccdd65c4b79e6bdae))
+
 ## [1.2.1](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.2.0...v1.2.1) (2024-03-22)
 
 
