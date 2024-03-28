@@ -156,7 +156,7 @@ class PrepareFormDataListener
                     'tmp_name' => $this->projectDir.'/'.$objFile->path,
                     'error' => 0,
                     'size' => $objFile->size,
-                    'uploaded' => true,
+                    'uploaded' => false,
                 ];
 
                 $_SESSION['FILES'][$config['fpName']] = $filledPdf;
