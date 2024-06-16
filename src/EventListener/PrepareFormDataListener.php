@@ -252,7 +252,7 @@ class PrepareFormDataListener
         if (!empty($arrFiles)) {
             foreach ($arrFiles as $fieldName => $file) {
                 foreach ($file as $upload) {
-                    if (!\is_array($upload) && !\array_key_exists('tmp_name', $upload)) {
+                    if (!\is_array($upload) && !\array_key_exists('tmp_name', (array) $upload)) {
                         throw new \InvalidArgumentException('$value must be an array normalized by the FileUploadNormalizer service.');
                     }
 
