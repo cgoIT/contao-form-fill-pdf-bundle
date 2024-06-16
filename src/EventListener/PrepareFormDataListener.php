@@ -159,7 +159,7 @@ class PrepareFormDataListener
                     'uploaded' => false,
                 ];
 
-                $_SESSION['FILES'][$config['fpName']] = $filledPdf;
+                $_SESSION['FILES'][$config['fpName']][] = $filledPdf;
             }
 
             return !empty($config['fpLeadStore']);
@@ -251,8 +251,14 @@ class PrepareFormDataListener
 
         if (!empty($arrFiles)) {
             foreach ($arrFiles as $fieldName => $file) {
-                $arrTokens['form_'.$fieldName] = $file['tmp_name'];
-                $arrFileNames[] = $file['name'];
+                foreach ($file as $upload) {
+                    if (!\is_array($upload) && !\array_key_exists('tmp_name', $upload)) {
+                        throw new \InvalidArgumentException('$value must be an array normalized by the FileUploadNormalizer service.');
+                    }
+
+                    $arrTokens['form_'.$fieldName] = $upload['tmp_name'];
+                    $arrFileNames[] = $upload['name'];
+                }
             }
         }
         $arrTokens['filenames'] = implode($delimiter, $arrFileNames);
