@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.3.0](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.2.2...v1.3.0) (2024-06-25)
+
+
+### Features
+
+* add missing dependencies ([dd9d7a6](https://github.com/cgoIT/contao-form-fill-pdf-bundle/commit/dd9d7a6d01948614f6ae132c584eb349f1af8044))
+
+
+### Bug Fixes
+
+* fix handling of uploaded files ([f9bf525](https://github.com/cgoIT/contao-form-fill-pdf-bundle/commit/f9bf52538cf70496ff5bb44d2fa7afde9b94d3fd))
+* fix handling of uploaded files ([0451aca](https://github.com/cgoIT/contao-form-fill-pdf-bundle/commit/0451aca0539fab7be13cc37f4caa163d47f3af61))
+* fix some bugs in handling uploaded files ([234bed0](https://github.com/cgoIT/contao-form-fill-pdf-bundle/commit/234bed02f1202c2224e14cb18852c4da3114311d))
+
 ## [1.2.2](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.2.1...v1.2.2) (2024-03-28)
 
 
