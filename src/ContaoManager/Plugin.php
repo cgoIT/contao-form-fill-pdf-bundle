@@ -17,7 +17,6 @@ use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
-use Terminal42\LeadsBundle\Terminal42LeadsBundle;
 
 class Plugin implements BundlePluginInterface
 {
@@ -25,8 +24,8 @@ class Plugin implements BundlePluginInterface
     {
         $arrLoadAfter = [ContaoCoreBundle::class];
 
-        if (class_exists(Terminal42LeadsBundle::class)) {
-            $arrLoadAfter[] = Terminal42LeadsBundle::class; // @phpstan-ignore-line
+        if (class_exists('Terminal42\LeadsBundle\Terminal42LeadsBundle')) {
+            $arrLoadAfter[] = 'Terminal42\LeadsBundle\Terminal42LeadsBundle'; // @phpstan-ignore-line
         }
 
         return [

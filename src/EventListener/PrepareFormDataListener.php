@@ -28,12 +28,15 @@ class PrepareFormDataListener
 {
     private readonly Filesystem $fs;
 
+    /**
+     * @param FormManagerFactoryInterface|null $formManagerFactory
+     */
     public function __construct(
         private readonly string $projectDir,
         private readonly Connection $db,
         private readonly StringParser $stringParser,
         private readonly InsertTagParser $insertTagParser,
-        private readonly FormManagerFactoryInterface|null $formManagerFactory, // @phpstan-ignore-line
+        private $formManagerFactory, // @phpstan-ignore-line
     ) {
         $this->fs = new Filesystem();
     }
@@ -251,13 +254,18 @@ class PrepareFormDataListener
 
         if (!empty($arrFiles)) {
             foreach ($arrFiles as $fieldName => $file) {
-                foreach ($file as $upload) {
-                    if (!\is_array($upload) && !\array_key_exists('tmp_name', (array) $upload)) {
-                        throw new \InvalidArgumentException('$value must be an array normalized by the FileUploadNormalizer service.');
-                    }
+                if ($this->isAssocArray($file)) {
+                    $arrTokens['form_'.$fieldName] = $file['tmp_name'];
+                    $arrFileNames[] = $file['name'];
+                } else {
+                    foreach ($file as $upload) {
+                        if (!\is_array($upload) && !\array_key_exists('tmp_name', (array) $upload)) {
+                            throw new \InvalidArgumentException('$value must be an array normalized by the FileUploadNormalizer service.');
+                        }
 
-                    $arrTokens['form_'.$fieldName] = $upload['tmp_name'];
-                    $arrFileNames[] = $upload['name'];
+                        $arrTokens['form_'.$fieldName] = $upload['tmp_name'];
+                        $arrFileNames[] = $upload['name'];
+                    }
                 }
             }
         }
@@ -373,7 +381,10 @@ class PrepareFormDataListener
         return $value;
     }
 
-    private function getGeneratePdfWidget(FormManager $manager): FormFieldModel|null // @phpstan-ignore-line
+    /**
+     * @param FormManager $manager
+     */
+    private function getGeneratePdfWidget($manager): FormFieldModel|null // @phpstan-ignore-line
     {
         if (null !== $arrWidgets = $manager->getFieldsForStep($manager->getCurrentStep())) { // @phpstan-ignore-line
             foreach ($arrWidgets as $widget) {
@@ -384,5 +395,19 @@ class PrepareFormDataListener
         }
 
         return null;
+    }
+
+    /**
+     * @param array<mixed> $arr
+     *
+     * @return bool
+     */
+    private function isAssocArray(array $arr)
+    {
+        if ([] === $arr) {
+            return false;
+        }
+
+        return array_keys($arr) !== range(0, \count($arr) - 1);
     }
 }

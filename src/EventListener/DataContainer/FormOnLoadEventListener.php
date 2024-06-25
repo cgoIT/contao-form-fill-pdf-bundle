@@ -14,14 +14,13 @@ namespace Cgoit\FormFillPdfBundle\EventListener\DataContainer;
 
 use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
 use Contao\DataContainer;
-use Terminal42\LeadsBundle\Terminal42LeadsBundle;
 
 #[AsCallback(table: 'tl_form', target: 'config.onload')]
 class FormOnLoadEventListener
 {
     public function __invoke(DataContainer $dc): void
     {
-        if (class_exists(Terminal42LeadsBundle::class)) {
+        if (class_exists('Terminal42\LeadsBundle\Terminal42LeadsBundle')) {
             $GLOBALS['TL_DCA'][$dc->table]['fields']['fpConfigs']['palette'][] = 'fpLeadStore';
         }
     }

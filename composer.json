@@ -33,9 +33,6 @@
     "symfony/filesystem": "^5.4 || ^6.1",
     "symfony/http-kernel": "^5.4 || ^6.1",
     "mvo/contao-group-widget": "^1.5",
-    "terminal42/contao-leads": "^3.0",
-    "terminal42/notification_center": "^2.0",
-    "terminal42/contao-mp_forms": "^5.2",
     "mikehaertl/php-pdftk": "^0.13.0"
   },
   "require-dev": {
@@ -45,6 +42,10 @@
   },
   "conflict": {
     "contao/manager-plugin": "<2.0 || >=3.0"
+  },
+  "suggest": {
+    "terminal42/contao-leads": "Storing",
+    "terminal42/notification_center": "Sending"
   },
   "autoload": {
     "psr-4": {
