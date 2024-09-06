@@ -18,7 +18,7 @@ use Contao\Widget;
 
 class GeneratePdf extends Widget
 {
-    final public const string TYPE = 'fp_generate_pdf';
+    final public const TYPE = 'fp_generate_pdf';
 
     /**
      * Submit indicator.
