@@ -167,7 +167,7 @@ class PrepareFormDataListener
                 $files[$config['fpName']] = $filledPdf;
 
                 // TODO check if needed. Where is the data removed from the session
-//                $_SESSION['FILES'][$config['fpName']][] = $filledPdf;
+                //                $_SESSION['FILES'][$config['fpName']][] = $filledPdf;
             }
 
             return !empty($config['fpLeadStore']);
@@ -260,7 +260,7 @@ class PrepareFormDataListener
         if (!empty($arrFiles)) {
             foreach ($arrFiles as $fieldName => $file) {
                 if ($this->isAssocArray($file)) {
-                    if (array_key_exists('tmp_name', $file)) {
+                    if (\array_key_exists('tmp_name', $file)) {
                         $arrTokens['form_'.$fieldName] = $file['tmp_name'];
                         $arrFileNames[] = $file['name'];
                     }
@@ -405,8 +405,6 @@ class PrepareFormDataListener
     }
 
     /**
-     * @param mixed $arr
-     *
      * @return bool
      */
     private function isAssocArray(mixed $arr)
