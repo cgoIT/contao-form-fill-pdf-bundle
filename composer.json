@@ -30,7 +30,7 @@
     "doctrine/dbal": "^3.3",
     "symfony/config": "^6.1",
     "symfony/dependency-injection": "^6.1",
-    "symfony/filesystem": "^6.1",
+    "symfony/filesystem": "^7.1",
     "symfony/http-kernel": "^6.1",
     "mvo/contao-group-widget": "^1.5",
     "mikehaertl/php-pdftk": "^0.13.0"
