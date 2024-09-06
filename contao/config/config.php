@@ -12,4 +12,4 @@ declare(strict_types=1);
 
 use Cgoit\FormFillPdfBundle\Widget\GeneratePdf;
 
-$GLOBALS['TL_FFL']['fp_generate_pdf'] = GeneratePdf::class;
+$GLOBALS['TL_FFL'][GeneratePdf::TYPE] = GeneratePdf::class;

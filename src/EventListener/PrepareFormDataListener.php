@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cgoit\FormFillPdfBundle\EventListener;
 
+use Cgoit\FormFillPdfBundle\Widget\GeneratePdf;
 use Codefog\HasteBundle\StringParser;
 use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use Contao\CoreBundle\InsertTag\InsertTagParser;
@@ -45,13 +46,13 @@ class PrepareFormDataListener
      * @param array<mixed> $submittedData
      * @param array<mixed> $labels
      * @param array<mixed> $arrFields
+     * @param array<mixed> $arrFiles
      */
-    public function __invoke(array &$submittedData, array $labels, array $arrFields, Form $form): void
+    public function __invoke(array &$submittedData, array $labels, array $arrFields, Form $form, array &$arrFiles): void
     {
         if ($form->fpFill) { // @phpstan-ignore-line
             $formData = $form->getModel()->row();
             $submitted = $submittedData;
-            $arrFiles = $_SESSION['FILES'] ?? [];
 
             $arrConfiguredConfigs = null;
 
@@ -100,7 +101,7 @@ class PrepareFormDataListener
             }
 
             foreach ($arrEffectiveConfig as $config) {
-                $leadStore |= $this->fillPdf($config, $submitted, $tokens);
+                $leadStore |= $this->fillPdf($config, $submitted, $tokens, $arrFiles);
             }
 
             if ($leadStore) {
@@ -113,8 +114,9 @@ class PrepareFormDataListener
      * @param array<mixed> $config
      * @param array<mixed> $submittedData
      * @param array<mixed> $tokens
+     * @param array<mixed> $files
      */
-    private function fillPdf(array $config, array $submittedData, array $tokens): bool
+    private function fillPdf(array $config, array $submittedData, array $tokens, array &$files): bool
     {
         if (
             !empty($objPdfTemplate = FilesModel::findByUuid($config['fpTemplate']))
@@ -162,7 +164,10 @@ class PrepareFormDataListener
                     'uploaded' => false,
                 ];
 
-                $_SESSION['FILES'][$config['fpName']][] = $filledPdf;
+                $files[$config['fpName']] = $filledPdf;
+
+                // TODO check if needed. Where is the data removed from the session
+//                $_SESSION['FILES'][$config['fpName']][] = $filledPdf;
             }
 
             return !empty($config['fpLeadStore']);
@@ -255,8 +260,10 @@ class PrepareFormDataListener
         if (!empty($arrFiles)) {
             foreach ($arrFiles as $fieldName => $file) {
                 if ($this->isAssocArray($file)) {
-                    $arrTokens['form_'.$fieldName] = $file['tmp_name'];
-                    $arrFileNames[] = $file['name'];
+                    if (array_key_exists('tmp_name', $file)) {
+                        $arrTokens['form_'.$fieldName] = $file['tmp_name'];
+                        $arrFileNames[] = $file['name'];
+                    }
                 } else {
                     foreach ($file as $upload) {
                         if (!\is_array($upload) && !\array_key_exists('tmp_name', (array) $upload)) {
@@ -388,7 +395,7 @@ class PrepareFormDataListener
     {
         if (null !== $arrWidgets = $manager->getFieldsForStep($manager->getCurrentStep())) { // @phpstan-ignore-line
             foreach ($arrWidgets as $widget) {
-                if ('fp_generate_pdf' === $widget->type) {
+                if (GeneratePdf::TYPE === $widget->type) {
                     return $widget;
                 }
             }
@@ -398,12 +405,16 @@ class PrepareFormDataListener
     }
 
     /**
-     * @param array<mixed> $arr
+     * @param mixed $arr
      *
      * @return bool
      */
-    private function isAssocArray(array $arr)
+    private function isAssocArray(mixed $arr)
     {
+        if (!\is_array($arr)) {
+            return false;
+        }
+
         if ([] === $arr) {
             return false;
         }

@@ -19,7 +19,7 @@ $GLOBALS['TL_LANG']['tl_form']['fpConfigs']['0'] = 'Configuration';
 $GLOBALS['TL_LANG']['tl_form']['fpConfigs']['1'] = 'One or more configurations for merging a PDF template.';
 
 $GLOBALS['TL_LANG']['tl_form']['fpName']['0'] = 'Name';
-$GLOBALS['TL_LANG']['tl_form']['fpName']['1'] = 'This name is used, among other things, to make the generated PDF usable as a SimpleToken. A name <code>merged</code> leads to a SimpleToken <code>##file_merged##</code>.';
+$GLOBALS['TL_LANG']['tl_form']['fpName']['1'] = 'This name is used, among other things, to make the generated PDF usable as a SimpleToken. A name <code>merged</code> leads to a SimpleToken <code>##form_merged##</code>.';
 
 $GLOBALS['TL_LANG']['tl_form']['fpTemplate']['0'] = 'PDF template';
 $GLOBALS['TL_LANG']['tl_form']['fpTemplate']['1'] = 'The template to be filled.';

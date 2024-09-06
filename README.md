@@ -70,7 +70,7 @@ As described above this extension works perfectly well with `terminal42/notifica
 
 ### Use with `terminal42/contao-mp_forms` ###
 
-If you have the use case to collect some data in a multi step form created with `terminal42/contao-mp_forms` **and** want to show the merged PDF e.g. on the summary step **before** you finally submit the form you can add a new FormField `Generate PDF` in your form configuration. If this FormField is present it will merge the data which is collected until this step into the selected PDFs and stores the result in the `$_SESSION['FILES']` array. Doing so you can refer to the merged PDF via the well-known Simple Tokens described above. 
+If you have the use case to collect some data in a multi step form created with `terminal42/contao-mp_forms` **and** want to show the merged PDF e.g. on the summary step **before** you finally submit the form you can add a new FormField `Generate PDF` in your form configuration. If this FormField is present it will merge the data which is collected until this step into the selected PDFs. Doing so you can refer to the merged PDF via the well-known Simple Tokens described above. 
 
 ## How to test ##
 

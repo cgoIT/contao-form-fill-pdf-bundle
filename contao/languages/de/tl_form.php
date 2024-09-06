@@ -19,7 +19,7 @@ $GLOBALS['TL_LANG']['tl_form']['fpConfigs']['0'] = 'Konfiguration';
 $GLOBALS['TL_LANG']['tl_form']['fpConfigs']['1'] = 'Eine oder mehrere Konfiguration zum Befüllen einer PDF-Vorlage.';
 
 $GLOBALS['TL_LANG']['tl_form']['fpName']['0'] = 'Bezeichnung';
-$GLOBALS['TL_LANG']['tl_form']['fpName']['1'] = 'Diese Bezeichnung wird u.a. dafür genutzt das erzeugte PDF als SimpleToken nutzbar zu machen. Eine Bezeichnung <code>merged</code> führt zu einem SimpleToken <code>##file_merged##</code>.';
+$GLOBALS['TL_LANG']['tl_form']['fpName']['1'] = 'Diese Bezeichnung wird u.a. dafür genutzt das erzeugte PDF als SimpleToken nutzbar zu machen. Eine Bezeichnung <code>merged</code> führt zu einem SimpleToken <code>##form_merged##</code>.';
 
 $GLOBALS['TL_LANG']['tl_form']['fpTemplate']['0'] = 'PDF-Vorlage';
 $GLOBALS['TL_LANG']['tl_form']['fpTemplate']['1'] = 'Die Vorlage, die befüllt werden soll.';
