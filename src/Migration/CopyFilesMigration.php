@@ -41,7 +41,7 @@ class CopyFilesMigration extends AbstractMigration
 
     public function run(): MigrationResult
     {
-        $path = sprintf(
+        $path = \sprintf(
             '%s/%s/bundles/cgoitformfillpdf',
             self::getRootDir(),
             self::getWebDir(),
