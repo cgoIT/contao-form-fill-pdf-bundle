@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.4.0](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.3.0...v1.4.0) (2024-09-06)
+
+
+### Features
+
+* fix bug when using notification_center 2 ([ec2cc16](https://github.com/cgoIT/contao-form-fill-pdf-bundle/commit/ec2cc161622fdc644282c7accef1d307f0858703))
+* fix bug when using notification_center 2 ([5bba368](https://github.com/cgoIT/contao-form-fill-pdf-bundle/commit/5bba368e3429f9f471c395d8584a28fea7ce25b7))
+
+
+### Miscellaneous Chores
+
+* fix ecs bugs ([63fa8a7](https://github.com/cgoIT/contao-form-fill-pdf-bundle/commit/63fa8a728d44b2de1d7db3734fef69e42cdd62a8))
+* fix ecs bugs ([0b5c344](https://github.com/cgoIT/contao-form-fill-pdf-bundle/commit/0b5c3445b9af6fa1bb188a88238b9a9923527fdd))
+* fix ecs bugs ([164dea4](https://github.com/cgoIT/contao-form-fill-pdf-bundle/commit/164dea4919a9741385c5947becd4f7b397cacb2a))
+
 ## [1.3.0](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.2.2...v1.3.0) (2024-06-25)
 
 
