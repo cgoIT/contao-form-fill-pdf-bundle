@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.4.0...v1.4.1) (2024-12-03)
+
+
+### Bug Fixes
+
+* use Doctrine Schema Representation for db columns ([a9d9c8d](https://github.com/cgoIT/contao-form-fill-pdf-bundle/commit/a9d9c8d2127063c8b89174e991d8d40808618cd9))
+
 ## [1.4.0](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.3.0...v1.4.0) (2024-09-06)
 
 
