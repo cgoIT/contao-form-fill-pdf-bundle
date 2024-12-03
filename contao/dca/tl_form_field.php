@@ -16,5 +16,5 @@ $GLOBALS['TL_DCA']['tl_form_field']['fields']['fpConfigs'] = [
     'exclude' => true,
     'inputType' => 'checkbox',
     'eval' => ['mandatory' => true, 'multiple' => true, 'tl_class' => 'w100'],
-    'sql' => 'blob NULL',
+    'sql' => ['type' => 'blob', 'length' => 65535, 'notnull' => false],
 ];

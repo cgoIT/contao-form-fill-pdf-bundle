@@ -28,7 +28,7 @@ $GLOBALS['TL_DCA']['tl_form']['fields'] = array_merge(
         'exclude' => true,
         'inputType' => 'checkbox',
         'eval' => ['tl_class' => 'w50 m12', 'submitOnChange' => true],
-        'sql' => "char(1) NOT NULL default ''",
+        'sql' => ['type' => 'string', 'length' => 1, 'fixed' => true, 'default' => ''],
     ]],
     ['fpLeadStore' => [
         'exclude' => true,
@@ -83,7 +83,7 @@ $GLOBALS['TL_DCA']['tl_form']['fields'] = array_merge(
                 'eval' => ['mandatory' => false, 'tl_class' => 'w50'],
             ],
         ],
-        'sql' => 'blob NULL',
+        'sql' => ['type' => 'blob', 'length' => 65535, 'notnull' => false],
     ]],
     $GLOBALS['TL_DCA']['tl_form']['fields'],
 );
