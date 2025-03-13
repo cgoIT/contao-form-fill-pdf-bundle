@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.3](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.4.2...v1.4.3) (2025-03-13)
+
+
+### Miscellaneous Chores
+
+* fix build-tools errors ([62282d0](https://github.com/cgoIT/contao-form-fill-pdf-bundle/commit/62282d0af87b48ca4ea721b77c85c70692fb7d94))
+
 ## [1.4.2](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.4.1...v1.4.2) (2025-02-11)
 
 
