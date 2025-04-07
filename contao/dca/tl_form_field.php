@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @license    LGPL-3.0-or-later
  */
 
-$GLOBALS['TL_DCA']['tl_form_field']['palettes']['fp_generate_pdf'] = '{type_legend},type;{fconfig_legend},fpConfigs;{invisible_legend:hide},invisible';
+$GLOBALS['TL_DCA']['tl_form_field']['palettes']['fp_generate_pdf'] = '{type_legend},type;{fconfig_legend},fpConfigs;{invisible_legend:collapsed},invisible';
 
 $GLOBALS['TL_DCA']['tl_form_field']['fields']['fpConfigs'] = [
     'exclude' => true,
