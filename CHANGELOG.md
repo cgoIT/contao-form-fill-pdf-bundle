@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.7](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.4.6...v1.4.7) (2026-03-27)
+
+
+### Miscellaneous Chores
+
+* integrate twig-cs-fixer ([126bd56](https://github.com/cgoIT/contao-form-fill-pdf-bundle/commit/126bd569111878c352b2f236244323329e0609ab))
+
 ## [1.4.6](https://github.com/cgoIT/contao-form-fill-pdf-bundle/compare/v1.4.5...v1.4.6) (2026-03-27)
 
 
