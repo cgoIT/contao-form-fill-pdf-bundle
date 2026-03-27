@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of cgoit\contao-form-fill-pdf-bundle for Contao Open Source CMS.
  *
- * @copyright  Copyright (c) 2025, cgoIT
+ * @copyright  Copyright (c) 2026, cgoIT
  * @author     cgoIT <https://cgo-it.de>
  * @license    LGPL-3.0-or-later
  */
@@ -27,6 +27,6 @@ class CgoitFormFillPdfExtension extends Extension
     public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
-        $loader->load('di.yml');
+        $loader->load('services.yml');
     }
 }
